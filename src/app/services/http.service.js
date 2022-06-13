@@ -2,9 +2,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import configFile from "../config.json";
 
-axios.defaults.baseURL = configFile.apiEndpoint;
+const hрtp = axios.create({
+    baseURL: configFile.apiEndpoint
+});
 
-axios.interceptors.request.use(
+hрtp.interceptors.request.use(
     function (config) {
         if (configFile.isFireBase) {
             const containSlash = /\/$/gi.test(config.url);
@@ -22,7 +24,7 @@ function transformData(data) {
     })) : [];
 }
 
-axios.interceptors.response.use(
+hрtp.interceptors.response.use(
     (res) => {
         if (configFile.isFireBase) {
             res.data = { content: transformData(res.data) };
@@ -43,9 +45,9 @@ axios.interceptors.response.use(
     }
 );
 const httpService = {
-    get: axios.get,
-    post: axios.post,
-    put: axios.put,
-    delete: axios.delete
+    get: hрtp.get,
+    post: hрtp.post,
+    put: hрtp.put,
+    delete: hрtp.delete
 };
 export default httpService;
