@@ -8,10 +8,12 @@ import localStorageService, {
 } from "../services/localStorage.service";
 import { useHistory } from "react-router-dom";
 
+const REACT_APP_FIREBASE_KEY = "AIzaSyCR0ttN45uhlc3WZ9poFV7oafPQV7KiFek";
+
 export const httpAuth = axios.create({
     baseURL: "https://identitytoolkit.googleapis.com/v1/",
     params: {
-        key: process.env.REACT_APP_FIREBASE_KEY
+        key: REACT_APP_FIREBASE_KEY
     }
 });
 const AuthContext = React.createContext();
